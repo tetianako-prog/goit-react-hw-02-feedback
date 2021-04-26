@@ -1,25 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import Statistics from './components/Statistics';
+import Section from './components/Section';
+import FeedbackOptions from './components/FeedbackOptions';
+import Notification from './components/Notification';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  };
+
+  clickHandler = name => {
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        [name]: prevState[name] + 1,
+      };
+    });
+  };
+  render() {
+    const buttonNames = Object.keys(this.state);
+    const { good, neutral, bad } = this.state;
+    const total = Object.values(this.state).reduce((acc, i) => acc + i, 0);
+    const positive =
+      total === 0 ? 0 : Math.round((this.state.good / total) * 100);
+
+    return (
+      <>
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            options={buttonNames}
+            onLeaveFeedback={this.clickHandler}
+          />
+        </Section>
+        <Section title="Statistics">
+          {total ? (
+            <Statistics
+              title="Statistics"
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={total}
+              positivePercentage={positive}
+            />
+          ) : (
+            <Notification message="No feedback given"></Notification>
+          )}
+        </Section>
+      </>
+    );
+  }
 }
 
 export default App;
