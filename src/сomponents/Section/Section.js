@@ -1,12 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Section.scss';
+import styled from 'styled-components';
+
+const SectionStyled = styled.section`
+  margin: 20px;
+  padding: 20px;
+  .title {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+`;
 
 const Section = ({ title, children }) => (
-  <section className="Section">
+  <SectionStyled>
     <h2 className="title">{title}</h2>
     {children}
-  </section>
+  </SectionStyled>
 );
 
 Section.propTypes = {

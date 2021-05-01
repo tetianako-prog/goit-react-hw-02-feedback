@@ -1,24 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import './Statistics.scss';
+const StatisticsStyled = styled.ul`
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-size: 20px;
+  text-transform: capitalize;
+`;
+
+const ItemStyled = styled.li`
+  margin-bottom: 10px;
+`;
 
 const Statistics = ({ good, neutral, bad, total, positivePercentage }) => (
-  <ul className="Statistics">
-    <li className="item">good: {good}</li>
-    <li className="item">neutral: {neutral}</li>
-    <li className="item">bad: {bad}</li>
-    <li className="item">total: {total}</li>
-    <li className="item">positive feedback: {positivePercentage}%</li>
-  </ul>
+  <StatisticsStyled>
+    <ItemStyled>good: {good}</ItemStyled>
+    <ItemStyled>neutral: {neutral}</ItemStyled>
+    <ItemStyled>bad: {bad}</ItemStyled>
+    <ItemStyled>total: {total}</ItemStyled>
+    <ItemStyled>positive feedback: {positivePercentage}%</ItemStyled>
+  </StatisticsStyled>
 );
 
-Statistics.propTypes = {
-  good: PropTypes.number.isRequired,
-  neutral: PropTypes.number.isRequired,
-  bad: PropTypes.number.isRequired,
-  total: PropTypes.number.isRequired,
-  positivePercentage: PropTypes.number.isRequired,
-};
+Statistics.propTypes = PropTypes.objectOf(PropTypes.number).isRequired;
 
 export default Statistics;
