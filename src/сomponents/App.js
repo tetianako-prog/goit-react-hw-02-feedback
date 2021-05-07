@@ -11,7 +11,8 @@ class App extends Component {
     bad: 0,
   };
 
-  clickHandler = name => {
+  clickHandler = e => {
+    const name = e.target.name;
     this.setState(prevState => {
       return {
         ...prevState,
